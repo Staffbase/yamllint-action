@@ -30,5 +30,9 @@ sources/dev/testapp2-deploy.yaml:16:11: [warning] wrong indentation: expected 12
     if report.LinterResults[6].AssertionResults[0].Severity != "failure" {
       t.Errorf("unexpected severity found: got %s, wanted %s", report.LinterResults[4].AssertionResults[0].Severity, "failure")
     }
+
+    if report.LinterResults[6].AssertionResults[0].Message != "wrong indentation: expected 12 but found 10 (indentation)" {
+      t.Errorf("unexpected severity found: got %s, wanted %s", report.LinterResults[4].AssertionResults[0].Message, "wrong indentation: expected 12 but found 10 (indentation)")
+    }
   })
 }

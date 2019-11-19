@@ -74,7 +74,7 @@ func parseInput(r io.Reader) Report {
 		codeCol, _ := strconv.Atoi(cols[2])
 
 		assertionResult := AssertionResult{
-			Message:  cols[3] + ":" + cols[4],
+			Message:  strings.Split(cols[3], "] ")[1] + ":" + cols[4],
 			Line:     codeLine,
 			Column:   codeCol,
 			Severity: mapSeverity(re.FindStringSubmatch(cols[3])[1]),
