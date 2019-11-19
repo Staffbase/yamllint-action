@@ -72,19 +72,22 @@ func parseInput(r io.Reader) Report {
 
 		codeLine, _ := strconv.Atoi(cols[1])
 		codeCol, _ := strconv.Atoi(cols[2])
+		fileName := cols[0]
+		message := strings.Split(cols[3], "] ")[1] + ":" + cols[4]
+		severity := mapSeverity(re.FindStringSubmatch(cols[3])[1])
 
 		assertionResult := AssertionResult{
-			Message:  strings.Split(cols[3], "] ")[1] + ":" + cols[4],
+			Message:  message,
 			Line:     codeLine,
 			Column:   codeCol,
-			Severity: mapSeverity(re.FindStringSubmatch(cols[3])[1]),
+			Severity: severity,
 		}
 
-		if _, exist := files[cols[0]]; exist == false {
-			files[cols[0]] = &LinterResult{FilePath: cols[0]}
+		if _, exist := files[fileName]; exist == false {
+			files[fileName] = &LinterResult{FilePath: fileName}
 		}
 
-		files[cols[0]].AssertionResults = append(files[cols[0]].AssertionResults, &assertionResult)
+		files[fileName].AssertionResults = append(files[fileName].AssertionResults, &assertionResult)
 		failedLines++
 	}
 
