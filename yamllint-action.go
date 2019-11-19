@@ -35,12 +35,6 @@ type AssertionResult struct {
 	Severity string
 }
 
-func check(e error) {
-	if e != nil {
-		panic(e)
-	}
-}
-
 func mapSeverity(severity string) string {
 	if severity == "warning" {
 		return "warning"
@@ -113,7 +107,6 @@ func main() {
 
 	ctx := context.Background()
 	action := ghactions.NewAction(ctx)
-
 	action.OnPush(func(client *github.Client, event *github.PushEvent) error {
 		return handlePush(ctx, client, event, report)
 	})
@@ -163,16 +156,6 @@ func handlePush(ctx context.Context, client *github.Client, event *github.PushEv
 					Message:         github.String(a.Message),
 				})
 			}
-		} else {
-			// usually the case for failed test suites
-			annotations = append(annotations, &github.CheckRunAnnotation{
-				Path:            github.String(path),
-				StartLine:       github.Int(1),
-				EndLine:         github.Int(1),
-				AnnotationLevel: github.String("failure"),
-				Title:           github.String("Test Suite Error"),
-				Message:         github.String(""),
-			})
 		}
 	}
 
@@ -205,5 +188,5 @@ func handlePush(ctx context.Context, client *github.Client, event *github.PushEv
 		}
 	}
 
-	return fmt.Errorf(summary)
+	return nil
 }
