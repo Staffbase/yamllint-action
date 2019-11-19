@@ -17,9 +17,10 @@ import (
 )
 
 type Report struct {
-	NumFailedLines int
-	Success        bool
-	LinterResults  []*LinterResult
+	NumFailedLines  int
+	Success         bool
+	ErrorHasOccured bool
+	LinterResults   []*LinterResult
 }
 
 type LinterResult struct {
@@ -61,6 +62,7 @@ func parseInput(r io.Reader) Report {
 	scanner := bufio.NewScanner(r)
 	files := make(map[string]*LinterResult)
 	failedLines := 0
+	ErrorHasOccured := false
 	re := regexp.MustCompile(` \[(.*)\]`)
 
 	for scanner.Scan() {
@@ -75,6 +77,10 @@ func parseInput(r io.Reader) Report {
 		fileName := cols[0]
 		message := strings.Split(cols[3], "] ")[1] + ":" + cols[4]
 		severity := mapSeverity(re.FindStringSubmatch(cols[3])[1])
+
+		if severity == "failure" {
+			ErrorHasOccured = true
+		}
 
 		assertionResult := AssertionResult{
 			Message:  message,
@@ -92,8 +98,9 @@ func parseInput(r io.Reader) Report {
 	}
 
 	report := Report{
-		NumFailedLines: failedLines,
-		Success:        failedLines == 0,
+		NumFailedLines:  failedLines,
+		Success:         failedLines == 0,
+		ErrorHasOccured: ErrorHasOccured,
 	}
 
 	keys := getSortedKeySlice(files)
@@ -191,5 +198,9 @@ func handlePush(ctx context.Context, client *github.Client, event *github.PushEv
 		}
 	}
 
-	return nil
+	if report.ErrorHasOccured {
+		return fmt.Errorf(summary)
+	} else {
+		return nil
+	}
 }
