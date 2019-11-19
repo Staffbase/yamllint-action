@@ -1,6 +1,6 @@
 # yamllint-action
 
-This github action is linting your yaml files and then annotates every finding in the PR.
+This github action is linting your yaml files and then annotates every finding in the changed files view.
 
 # usage
 
