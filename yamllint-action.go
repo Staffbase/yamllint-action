@@ -69,13 +69,19 @@ func parseInput(r io.Reader) Report {
 		cols := strings.Split(scanner.Text(), ":")
 
 		if len(cols) < 4 {
+			log.Println(scanner.Text())
 			break
 		}
 
 		codeLine, _ := strconv.Atoi(cols[1])
 		codeCol, _ := strconv.Atoi(cols[2])
 		fileName := cols[0]
-		message := strings.Split(cols[3], "] ")[1] + ":" + cols[4]
+		message := strings.Split(cols[3], "] ")[1]
+
+		if len(cols) == 5 {
+			 message += ":" + cols[4]
+		}
+
 		severity := mapSeverity(re.FindStringSubmatch(cols[3])[1])
 
 		if severity == "failure" {
