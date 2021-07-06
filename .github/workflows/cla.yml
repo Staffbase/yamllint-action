@@ -18,10 +18,11 @@ jobs:
         uses: cla-assistant/github-action@v2.1.1-beta
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # See: https://github.com/cla-assistant/github-action#6-adding-personal-access-token-as-a-secret
+          # PERSONAL_ACCESS_TOKEN:
         with: 
           path-to-signatures: 'signatures/version1/cla.json'
           path-to-document: 'https://github.com/Staffbase/template-oss-repository/blob/master/CLA.md'
           # branch should not be protected
           branch: 'signatures'
-          # no allowlist currently
-          # allowlist: user1,user2,bot*
+          allowlist: 0x46616c6b,axdotl,kaitimmer,ricoberger,staffbot
