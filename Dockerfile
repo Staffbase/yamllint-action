@@ -24,7 +24,6 @@ RUN adduser \
     --uid "${UID}" \
     "${USER}"
 
-
 FROM sdesbure/yamllint
 RUN pip install --upgrade yamllint
 

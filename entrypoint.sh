@@ -13,4 +13,4 @@
 
 set -e
 
-yamllint -f parsable ${TARGETPATH} | /usr/bin/yamllint-action
+yamllint -f parsable ${TARGETPATH} | /yamllint-action
