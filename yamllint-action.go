@@ -25,7 +25,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/google/go-github/v27/github"
+	"github.com/google/go-github/v32/github"
 	"github.com/ldez/ghactions"
 )
 
@@ -76,7 +76,7 @@ func parseInput(r io.Reader) Report {
 	files := make(map[string]*LinterResult)
 	failedLines := 0
 	ErrorHasOccured := false
-	re := regexp.MustCompile(` \[(.*)\]`)
+	re := regexp.MustCompile(` \[(.*)]`)
 
 	for scanner.Scan() {
 		cols := strings.Split(scanner.Text(), ":")
@@ -92,7 +92,7 @@ func parseInput(r io.Reader) Report {
 		message := strings.Split(cols[3], "] ")[1]
 
 		if len(cols) == 5 {
-			 message += ":" + cols[4]
+			message += ":" + cols[4]
 		}
 
 		severity := mapSeverity(re.FindStringSubmatch(cols[3])[1])
@@ -137,7 +137,7 @@ func main() {
 	ctx := context.Background()
 	action := ghactions.NewAction(ctx)
 	action.OnPush(func(client *github.Client, event *github.PushEvent) error {
-		return handlePush(ctx, client, event, report)
+		return handlePush(ctx, client, report)
 	})
 
 	if err := action.Run(); err != nil {
@@ -145,7 +145,7 @@ func main() {
 	}
 }
 
-func handlePush(ctx context.Context, client *github.Client, event *github.PushEvent, report Report) error {
+func handlePush(ctx context.Context, client *github.Client, report Report) error {
 	if report.Success {
 		return nil
 	}
