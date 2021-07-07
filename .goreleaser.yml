@@ -1,0 +1,34 @@
+before:
+  hooks:
+    - go mod tidy
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+    goarch:
+      - amd64
+    ldflags:
+      - -s -w
+dockers:
+  -
+    goos: linux
+    goarch: amd64
+    image_templates:
+      - "staffbace/yamllint-action:{{ .Tag }}"
+      - "staffbace/yamllint-action:{{ .Major }}"
+      - "staffbace/yamllint-action:{{ .Major }}.{{ .Minor }}"
+      - "staffbace/yamllint-action:latest"
+    extra_files:
+    - entrypoint.sh
+
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'

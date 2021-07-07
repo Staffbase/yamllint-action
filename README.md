@@ -1,11 +1,14 @@
-# yamllint-action
+# Lint All Your YAML Files
 
-This github action is linting your yaml files and then annotates every finding in the changed files view.
+Using this GitHub Action in your workflow to lint all yaml files and then annotates every finding in the changed files view.
 
-# usage
+![annotation](images/annotation.png)
 
-Create a new workflow with the following settings
-```
+## Usage
+
+Create a new workflow with the following content:
+
+```yaml
 name: YAMLlint
 
 on: push
@@ -20,6 +23,11 @@ jobs:
         uses: "docker://registry.staffbase.com/public/yamllint-action:latest"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TARGETPATH: [RELATIVE_FOLDER_PATH]
+          ## The target path is processed recursively
+          TARGETPATH: <relative-folder-path>
 
 ```
+
+## Credits
+
+This action is using [adrienverge/yamllint](https://github.com/adrienverge/yamllint).
