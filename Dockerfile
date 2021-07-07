@@ -8,21 +8,31 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+FROM alpine:3.14.0 as builder
 
-FROM golang:alpine3.13 as builder
+WORKDIR /go/src/github.com/Staffbase/yamllint-action
 
-RUN apk --update upgrade
-RUN apk --no-cache --no-progress add make git gcc musl-dev
+ENV USER=appuser
+ENV UID=10001
 
-WORKDIR /build
-COPY . .
-RUN go build .
+RUN adduser \
+    --disabled-password \
+    --gecos "" \
+    --home "/nonexistent" \
+    --shell "/sbin/nologin" \
+    --no-create-home \
+    --uid "${UID}" \
+    "${USER}"
 
 
 FROM sdesbure/yamllint
 RUN pip install --upgrade yamllint
-COPY --from=builder /build/yamllint-action /usr/bin/yamllint-action
+
+COPY --from=builder /etc/passwd /etc/passwd
+COPY --from=builder /etc/group /etc/group
+COPY yamllint-action /yamllint-action
 COPY entrypoint.sh /entrypoint.sh
 
+USER appuser:appuser
 
 ENTRYPOINT ["/entrypoint.sh"]
