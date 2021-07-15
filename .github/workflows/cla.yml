@@ -4,10 +4,10 @@
 
 name: "CLA Assistant"
 on:
-  pull_request:
-    types: [opened,closed,synchronize]
   issue_comment:
     types: [created]
+  pull_request:
+    types: [opened,closed,synchronize]
     
 jobs:
   CLAssistant:
