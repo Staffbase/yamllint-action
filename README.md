@@ -11,23 +11,31 @@ Create a new workflow with the following content:
 ```yaml
 name: YAMLlint
 
-on: push
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
 
 jobs:
   yamllint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
-      - name: Lint and annotate
-        uses: "docker://registry.staffbase.com/public/yamllint-action:latest"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ## The target path is processed recursively
-          TARGETPATH: <relative-folder-path>
+        uses: actions/checkout@v2
 
+      - name : Lint and Annotate
+        uses: staffbase/yamllint-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ## The target path is processed recursively
+          target-path: <relative-folder-path>
 ```
 
 ## Credits
 
-This action is using [adrienverge/yamllint](https://github.com/adrienverge/yamllint).
+This action is using
+
+- [adrienverge/yamllint](https://github.com/adrienverge/yamllint)
+- [sdesbure/docker_yamllint](https://github.com/sdesbure/docker_yamllint)
