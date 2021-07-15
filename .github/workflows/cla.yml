@@ -6,8 +6,6 @@ name: "CLA Assistant"
 on:
   pull_request:
     types: [opened,closed,synchronize]
-  pull_request_review_comment:
-    types: [created]
   issue_comment:
     types: [created]
     
