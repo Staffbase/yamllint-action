@@ -1,0 +1,23 @@
+name: 'YAML Lint and Annotate'
+description: 'Lints yaml files and annotates every finding'
+author: 'Staffbase GmbH'
+
+inputs:
+  target-path:
+    description: 'Path to directory containing the yaml files (processed recursively)'
+    required: true
+  token:
+    description: 'Used to annotate findings'
+    default: ${{ github.token }}
+    required: true
+
+runs:
+  using: docker
+  image: docker://registry.staffbase.com/public/yamllint-action
+  env:
+    TARGET_PATH: ${{ inputs.target-path }}
+    GITHUB_TOKEN: ${{ inputs.token }}
+
+branding:
+  icon: 'check-square'
+  color: 'blue'
