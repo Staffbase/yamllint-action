@@ -25,7 +25,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name : Lint and Annotate
+      - name: Lint and Annotate
         uses: staffbase/yamllint-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
