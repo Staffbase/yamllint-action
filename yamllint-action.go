@@ -25,7 +25,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/google/go-github/v32/github"
+	"github.com/google/go-github/v37/github"
 	"github.com/ldez/ghactions"
 )
 
@@ -208,9 +208,8 @@ func handlePush(ctx context.Context, client *github.Client, report Report) error
 		}
 
 		_, _, err = client.Checks.UpdateCheckRun(ctx, owner, repoName, checkRun.GetID(), github.UpdateCheckRunOptions{
-			Name:    checkName,
-			HeadSHA: github.String(head),
-			Output:  output,
+			Name:   checkName,
+			Output: output,
 		})
 		if err != nil {
 			return err
