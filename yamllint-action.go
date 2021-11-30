@@ -154,7 +154,7 @@ func handlePush(ctx context.Context, client *github.Client, report Report) error
 	owner, repoName := ghactions.GetRepoInfo()
 
 	// find the action's checkrun
-	checkName := "yamllint"
+	checkName := os.Getenv("ACTION_NAME")
 	result, _, err := client.Checks.ListCheckRunsForRef(ctx, owner, repoName, head, &github.ListCheckRunsOptions{
 		CheckName: github.String(checkName),
 		Status:    github.String("in_progress"),
