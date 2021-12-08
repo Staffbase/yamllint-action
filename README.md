@@ -31,6 +31,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           ## The target path is processed recursively
           target-path: <relative-folder-path>
+          ## The action name is only necessary if the current action name changed
+          action-name: <name-of-the-action>
 ```
 
 ## Credits

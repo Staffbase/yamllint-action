@@ -3,6 +3,10 @@ description: 'Lints yaml files and annotates every finding'
 author: 'Staffbase GmbH'
 
 inputs:
+  action-name:
+    description: 'Name of the running action'
+    default: 'yamllint'
+    required: false
   target-path:
     description: 'Path to directory containing the yaml files (processed recursively)'
     required: true
@@ -16,6 +20,7 @@ runs:
   image: docker://registry.staffbase.com/public/yamllint-action
   env:
     TARGET_PATH: ${{ inputs.target-path }}
+    ACTION_NAME: ${{ inputs.action-name }}
     GITHUB_TOKEN: ${{ inputs.token }}
 
 branding:
