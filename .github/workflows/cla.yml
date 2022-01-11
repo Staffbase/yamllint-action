@@ -24,4 +24,4 @@ jobs:
           path-to-document: 'https://github.com/Staffbase/yamllint-action/blob/master/CLA.md'
           # branch should not be protected
           branch: 'signatures'
-          allowlist: 0x46616c6b,axdotl,kaitimmer,ricoberger,bot*
+          allowlist: 0x46616c6b,axdotl,kaitimmer,ricoberger,dependabot[bot]
