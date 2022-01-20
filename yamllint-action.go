@@ -137,10 +137,6 @@ func main() {
 	ctx := context.Background()
 	action := ghactions.NewAction(ctx)
 
-	action.OnPush(func(client *github.Client, event *github.PushEvent) error {
-		return handlePush(ctx, client, report)
-	})
-
 	err := action.
 		OnPullRequest(func(client *github.Client, event *github.PullRequestEvent) error {
 			return handlePush(ctx, client, report)
