@@ -13,7 +13,7 @@ FROM python:3.9.15-alpine3.16
 
 WORKDIR /go/src/github.com/Staffbase/yamllint-action
 
-RUN pip install --no-cache-dir yamllint && \
+RUN pip install --no-cache-dir yamllint==1.28.0 && \
     adduser --disabled-password --gecos "" --home "/nonexistent" --shell "/sbin/nologin" --no-create-home --uid 10001 appuser
 
 COPY yamllint-action /yamllint-action
