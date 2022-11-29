@@ -8,27 +8,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-FROM alpine:3.17.0 as builder
+
+FROM python:3.9.15-alpine3.16
 
 WORKDIR /go/src/github.com/Staffbase/yamllint-action
 
-ENV USER=appuser
-ENV UID=10001
+RUN pip install --no-cache-dir yamllint==1.28.0 && \
+    adduser --disabled-password --gecos "" --home "/nonexistent" --shell "/sbin/nologin" --no-create-home --uid 10001 appuser
 
-RUN adduser \
-    --disabled-password \
-    --gecos "" \
-    --home "/nonexistent" \
-    --shell "/sbin/nologin" \
-    --no-create-home \
-    --uid "${UID}" \
-    "${USER}"
-
-FROM sdesbure/yamllint
-RUN pip install --upgrade yamllint
-
-COPY --from=builder /etc/passwd /etc/passwd
-COPY --from=builder /etc/group /etc/group
 COPY yamllint-action /yamllint-action
 COPY entrypoint.sh /entrypoint.sh
 
