@@ -27,4 +27,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Set major and minor tags
-      uses: vweevers/additional-tags-action@v1
+      uses: vweevers/additional-tags-action@v2
