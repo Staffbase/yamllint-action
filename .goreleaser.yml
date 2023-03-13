@@ -15,10 +15,10 @@ dockers:
     goos: linux
     goarch: amd64
     image_templates:
-      - "registry.staffbase.com/public/yamllint-action:{{ .Tag }}"
-      - "registry.staffbase.com/public/yamllint-action:{{ .Major }}"
-      - "registry.staffbase.com/public/yamllint-action:{{ .Major }}.{{ .Minor }}"
-      - "registry.staffbase.com/public/yamllint-action:latest"
+      - "staffbase/yamllint-action:{{ .Tag }}"
+      - "staffbase/yamllint-action:{{ .Major }}"
+      - "staffbase/yamllint-action:{{ .Major }}.{{ .Minor }}"
+      - "staffbase/yamllint-action:latest"
     extra_files:
     - entrypoint.sh
 

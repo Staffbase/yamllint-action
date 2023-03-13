@@ -17,7 +17,7 @@ inputs:
 
 runs:
   using: docker
-  image: docker://registry.staffbase.com/public/yamllint-action
+  image: docker://staffbase/yamllint-action
   env:
     TARGET_PATH: ${{ inputs.target-path }}
     ACTION_NAME: ${{ inputs.action-name }}
