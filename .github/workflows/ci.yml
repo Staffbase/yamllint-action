@@ -8,7 +8,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: 1.19
+          go-version: 1.21
 
       - name: Check out code into the Go module directory
         uses: actions/checkout@v4
@@ -32,12 +32,12 @@ jobs:
     - name: Setup Go
       uses: actions/setup-go@v5
       with:
-        go-version: 1.19
+        go-version: 1.21
 
     - name: Release Dry Run
       uses: goreleaser/goreleaser-action@v5.0.0
       with:
         version: latest
-        args: release --rm-dist --snapshot --skip-announce --skip-publish
+        args: release --clean --snapshot --skip=announce --skip=publish
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
