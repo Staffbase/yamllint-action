@@ -41,3 +41,15 @@ jobs:
         args: release --clean --snapshot --skip=announce --skip=publish
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  dependabot-automerge:
+    name: Auto Merge (Dependabot)
+    needs:
+      - release-dry-run
+      - test
+    uses: Staffbase/gha-workflows/.github/workflows/template_automerge_dependabot.yml@v5.2.0
+    with:
+      force: true
+    secrets:
+      app_id: ${{ vars.STAFFBASE_ACTIONS_APP_ID }}
+      private_key: ${{ secrets.STAFFBASE_ACTIONS_PRIVATE_KEY }}
