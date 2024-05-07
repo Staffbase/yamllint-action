@@ -45,7 +45,6 @@ jobs:
   dependabot-automerge:
     name: Auto Merge (Dependabot)
     needs:
-      - release-dry-run
       - test
     uses: Staffbase/gha-workflows/.github/workflows/template_automerge_dependabot.yml@v5.2.0
     with:
