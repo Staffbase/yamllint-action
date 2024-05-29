@@ -1,10 +1,10 @@
 module github.com/Staffbase/yamllint-action
 
-go 1.21
+go 1.22.2
 
 require (
-	github.com/google/go-github/v58 v58.0.0
-	github.com/ldez/ghactions v1.9.0
+	github.com/google/go-github/v62 v62.0.0
+	github.com/ldez/ghactions v1.10.0
 )
 
 require (
