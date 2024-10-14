@@ -9,7 +9,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM python:3.12.7-alpine3.19
+FROM python:3.13.0-alpine3.19
 
 WORKDIR /go/src/github.com/Staffbase/yamllint-action
 
