@@ -1,3 +1,4 @@
+---
 # This version of the CLA Assistant uses a GitHub action and local
 # storage of the signatures.
 # https://github.com/cla-assistant/github-action/
@@ -7,7 +8,7 @@ on:
   issue_comment:
     types: [created]
   pull_request_target:
-    types: [opened,closed,synchronize]
+    types: [opened, closed, synchronize]
 
 jobs:
   CLAssistant:
@@ -21,7 +22,7 @@ jobs:
           PERSONAL_ACCESS_TOKEN: ${{ secrets.OSS_CONTRIBUTOR_LICENSE_AGREEMENT }}
         with:
           path-to-signatures: 'signatures/version1/cla.json'
-          path-to-document: 'https://github.com/Staffbase/yamllint-action/blob/master/CLA.md'
+          path-to-document: 'https://github.com/Staffbase/yamllint-action/blob/main/CLA.md'
           # branch should not be protected
           branch: 'signatures'
           allowlist: 0x46616c6b,axdotl,kaitimmer,ricoberger,dependabot[bot]
