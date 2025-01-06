@@ -18,5 +18,5 @@
 - [ ] Write tests
 - [ ] Make sure all tests pass
 - [ ] Update documentation
-- [ ] Review the [Contributing Guideline](https://github.com/Staffbase/yamllint-action/blob/master/CONTRIBUTING.md) and sign CLA
+- [ ] Review the [Contributing Guideline](https://github.com/Staffbase/yamllint-action/blob/main/CONTRIBUTING.md) and sign CLA
 - [ ] Reference relevant issue(s) and close them after merging
