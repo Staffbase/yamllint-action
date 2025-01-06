@@ -1,0 +1,15 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: yamllint-action
+  description: Lints yaml files and annotates every finding.
+  annotations:
+    github.com/project-slug: Staffbase/yamllint-action
+  tags:
+    - go
+    - github-actions
+spec:
+  type: service
+  owner: diablo
+  lifecycle: production
