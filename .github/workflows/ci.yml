@@ -47,7 +47,7 @@ jobs:
     name: Auto Merge (Dependabot)
     needs:
       - test
-    uses: Staffbase/gha-workflows/.github/workflows/template_automerge_dependabot.yml@v7.2.0
+    uses: Staffbase/gha-workflows/.github/workflows/template_automerge_dependabot.yml@v7.3.1
     with:
       force: true
     secrets:
