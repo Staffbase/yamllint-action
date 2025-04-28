@@ -1,0 +1,17 @@
+---
+name: Autodev
+
+on:
+  push:
+    branches-ignore: [dev]
+  pull_request:
+    types: [labeled, unlabeled, closed]
+
+jobs:
+  autodev:
+    uses: Staffbase/gha-workflows/.github/workflows/template_autodev.yml@v7.6.0
+    with:
+      labels: true
+    secrets:
+      app_id: ${{ vars.STAFFBASE_ACTIONS_APP_ID }}
+      private_key: ${{ secrets.STAFFBASE_ACTIONS_PRIVATE_KEY }}
