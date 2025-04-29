@@ -19,7 +19,7 @@ RUN export CGO_ENABLED=0 && go build -o ./yamllint-action .
 FROM python:3.13.1-alpine3.19
 RUN pip install --no-cache-dir yamllint==1.35.1 && \
     adduser --disabled-password --gecos "" --home "/nonexistent" --shell "/sbin/nologin" --no-create-home --uid 10001 appuser
-COPY --from=build /yamllint-action/yamllint-action /script_exporter
+COPY --from=build /yamllint-action/yamllint-action /yamllint-action
 COPY entrypoint.sh /entrypoint.sh
 USER appuser:appuser
 ENTRYPOINT ["/entrypoint.sh"]
