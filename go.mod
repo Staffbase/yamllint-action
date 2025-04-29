@@ -1,7 +1,6 @@
 module github.com/Staffbase/yamllint-action
 
-go 1.22.2
-toolchain go1.24.1
+go 1.24.0
 
 require (
 	github.com/google/go-github/v68 v68.0.0
