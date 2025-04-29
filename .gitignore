@@ -2,3 +2,4 @@
 .idea
 dist/
 yamllint-action
+coverage.out
