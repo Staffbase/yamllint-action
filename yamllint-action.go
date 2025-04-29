@@ -217,7 +217,7 @@ func handlePush(ctx context.Context, client *github.Client, report Report) error
 	}
 
 	if report.ErrorHasOccured {
-		return fmt.Errorf(summary)
+		return fmt.Errorf("report contains error: %s", summary)
 	} else {
 		return nil
 	}
