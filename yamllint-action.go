@@ -108,7 +108,7 @@ func parseInput(r io.Reader) Report {
 			Severity: severity,
 		}
 
-		if _, exist := files[fileName]; exist == false {
+		if _, exist := files[fileName]; !exist {
 			files[fileName] = &LinterResult{FilePath: fileName}
 		}
 
@@ -156,15 +156,15 @@ func handlePush(ctx context.Context, client *github.Client, report Report) error
 	// find the action's checkrun
 	checkName := os.Getenv("ACTION_NAME")
 	result, _, err := client.Checks.ListCheckRunsForRef(ctx, owner, repoName, head, &github.ListCheckRunsOptions{
-		CheckName: github.String(checkName),
-		Status:    github.String("in_progress"),
+		CheckName: github.Ptr(checkName),
+		Status:    github.Ptr("in_progress"),
 	})
 	if err != nil {
 		return err
 	}
 
 	if len(result.CheckRuns) == 0 {
-		return fmt.Errorf("Unable to find check run for action: %s", checkName)
+		return fmt.Errorf("unable to find check run for action: %s", checkName)
 	}
 	checkRun := result.CheckRuns[0]
 
@@ -177,12 +177,12 @@ func handlePush(ctx context.Context, client *github.Client, report Report) error
 		if len(t.AssertionResults) > 0 {
 			for _, a := range t.AssertionResults {
 				annotations = append(annotations, &github.CheckRunAnnotation{
-					Path:            github.String(path),
-					StartLine:       github.Int(a.Line),
-					EndLine:         github.Int(a.Line),
-					AnnotationLevel: github.String(a.Severity),
-					Title:           github.String(""),
-					Message:         github.String(a.Message),
+					Path:            github.Ptr(path),
+					StartLine:       github.Ptr(a.Line),
+					EndLine:         github.Ptr(a.Line),
+					AnnotationLevel: github.Ptr(a.Severity),
+					Title:           github.Ptr(""),
+					Message:         github.Ptr(a.Message),
 				})
 			}
 		}
@@ -202,8 +202,8 @@ func handlePush(ctx context.Context, client *github.Client, report Report) error
 		}
 
 		output := &github.CheckRunOutput{
-			Title:       github.String("Result"),
-			Summary:     github.String(summary),
+			Title:       github.Ptr("Result"),
+			Summary:     github.Ptr(summary),
 			Annotations: annotations[i:end],
 		}
 
