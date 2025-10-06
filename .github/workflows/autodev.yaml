@@ -9,7 +9,7 @@ on:
 
 jobs:
   autodev:
-    uses: Staffbase/gha-workflows/.github/workflows/template_autodev.yml@v7.9.0
+    uses: Staffbase/gha-workflows/.github/workflows/template_autodev.yml@v8.0.0
     with:
       labels: true
     secrets:
