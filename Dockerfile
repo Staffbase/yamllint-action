@@ -9,7 +9,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM golang:1.25.1 AS build
+FROM golang:1.25.2 AS build
 WORKDIR /yamllint-action
 COPY go.mod go.sum /yamllint-action/
 RUN go mod download
