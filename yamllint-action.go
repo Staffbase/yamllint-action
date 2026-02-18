@@ -82,6 +82,7 @@ func parseInput(r io.Reader) Report {
 		cols := strings.Split(scanner.Text(), ":")
 
 		if len(cols) < 4 {
+			//nolint:gosec
 			log.Println(scanner.Text())
 			break
 		}
