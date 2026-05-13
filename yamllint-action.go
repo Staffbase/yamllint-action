@@ -25,7 +25,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/google/go-github/v71/github"
+	"github.com/google/go-github/v85/github"
 	"github.com/ldez/ghactions"
 )
 
