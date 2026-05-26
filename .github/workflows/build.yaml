@@ -27,7 +27,7 @@ jobs:
           go-version-file: "go.mod"
 
       - name: Lint
-        uses: golangci/golangci-lint-action@v9
+        uses: golangci/golangci-lint-action@v9.2.0
         with:
           version: latest
 
@@ -40,7 +40,7 @@ jobs:
         run: go build -o ./yamllint-action .
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarqube-scan-action@v8.0.0
+        uses: SonarSource/sonarqube-scan-action@v8.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
@@ -73,14 +73,14 @@ jobs:
 
       - name: Login to DockerHub
         if: github.event_name == 'release' && github.event.action == 'published'
-        uses: docker/login-action@v4
+        uses: docker/login-action@v4.1.0
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Build and Push Docker Image
         id: docker_build
-        uses: docker/build-push-action@v7
+        uses: docker/build-push-action@v7.1.0
         with:
           push:
             ${{ github.event_name == 'release' && github.event.action ==
