@@ -11,5 +11,5 @@ metadata:
     - github-actions
 spec:
   type: service
-  owner: diablo
+  owner: product-core-infra
   lifecycle: production
