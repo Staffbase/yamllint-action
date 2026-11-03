@@ -11,6 +11,12 @@ on:
   release:
     types: [published]
 
+# Cancel outdated runs of every pull request, so the Dependabot auto-merge job
+# of an older run doesn't approve a newer commit whose tests haven't passed yet.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   test:
     name: Test
@@ -95,9 +101,7 @@ jobs:
 
   dependabot-automerge:
     name: Auto Merge (Dependabot)
-    needs:
-      - test
-      - push
+    needs: [test, push]
     uses: Staffbase/gha-workflows/.github/workflows/template_automerge_dependabot.yml@65f8e7987a0bc997bc2fa3469c277766a3ec7c31 # v19.2.1
     secrets:
       client_id: ${{ vars.STAFFBASE_ACTIONS_CLIENT_ID }}
