@@ -92,3 +92,13 @@ jobs:
           cache-to: type=gha,mode=max
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
+
+  dependabot-automerge:
+    name: Auto Merge (Dependabot)
+    needs:
+      - test
+      - push
+    uses: Staffbase/gha-workflows/.github/workflows/template_automerge_dependabot.yml@65f8e7987a0bc997bc2fa3469c277766a3ec7c31 # v19.2.1
+    secrets:
+      client_id: ${{ vars.STAFFBASE_ACTIONS_CLIENT_ID }}
+      private_key: ${{ secrets.STAFFBASE_ACTIONS_PRIVATE_KEY }}
