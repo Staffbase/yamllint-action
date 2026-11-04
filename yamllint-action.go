@@ -25,7 +25,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/google/go-github/v85/github"
+	"github.com/google/go-github/v93/github"
 	"github.com/ldez/ghactions"
 )
 
@@ -136,7 +136,10 @@ func main() {
 	report := parseInput(os.Stdin)
 
 	ctx := context.Background()
-	action := ghactions.NewAction(ctx)
+	action, err := ghactions.NewAction(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
 	action.OnPush(func(client *github.Client, event *github.PushEvent) error {
 		return handlePush(ctx, client, report)
 	})
@@ -157,8 +160,8 @@ func handlePush(ctx context.Context, client *github.Client, report Report) error
 	// find the action's checkrun
 	checkName := os.Getenv("ACTION_NAME")
 	result, _, err := client.Checks.ListCheckRunsForRef(ctx, owner, repoName, head, &github.ListCheckRunsOptions{
-		CheckName: github.Ptr(checkName),
-		Status:    github.Ptr("in_progress"),
+		CheckName: new(checkName),
+		Status:    new("in_progress"),
 	})
 	if err != nil {
 		return err
@@ -178,12 +181,12 @@ func handlePush(ctx context.Context, client *github.Client, report Report) error
 		if len(t.AssertionResults) > 0 {
 			for _, a := range t.AssertionResults {
 				annotations = append(annotations, &github.CheckRunAnnotation{
-					Path:            github.Ptr(path),
-					StartLine:       github.Ptr(a.Line),
-					EndLine:         github.Ptr(a.Line),
-					AnnotationLevel: github.Ptr(a.Severity),
-					Title:           github.Ptr(""),
-					Message:         github.Ptr(a.Message),
+					Path:            new(path),
+					StartLine:       new(a.Line),
+					EndLine:         new(a.Line),
+					AnnotationLevel: new(a.Severity),
+					Title:           new(""),
+					Message:         new(a.Message),
 				})
 			}
 		}
@@ -203,8 +206,8 @@ func handlePush(ctx context.Context, client *github.Client, report Report) error
 		}
 
 		output := &github.CheckRunOutput{
-			Title:       github.Ptr("Result"),
-			Summary:     github.Ptr(summary),
+			Title:       new("Result"),
+			Summary:     new(summary),
 			Annotations: annotations[i:end],
 		}
 
