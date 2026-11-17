@@ -79,7 +79,7 @@ jobs:
 
       - name: Login to DockerHub
         if: github.event_name == 'release' && github.event.action == 'published'
-        uses: docker/login-action@81c6f93d4bc991e510b342a00b419b3bb4efc5c6 # v4.7.0
+        uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4.8.0
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
@@ -102,7 +102,7 @@ jobs:
   dependabot-automerge:
     name: Auto Merge (Dependabot)
     needs: [test, push]
-    uses: Staffbase/gha-workflows/.github/workflows/template_automerge_dependabot.yml@65f8e7987a0bc997bc2fa3469c277766a3ec7c31 # v19.2.1
+    uses: Staffbase/gha-workflows/.github/workflows/template_automerge_dependabot.yml@a77e81bbab1411061ac4d8f90773387934b9e3d9 # v20.1.0
     secrets:
       client_id: ${{ vars.STAFFBASE_ACTIONS_CLIENT_ID }}
       private_key: ${{ secrets.STAFFBASE_ACTIONS_PRIVATE_KEY }}
